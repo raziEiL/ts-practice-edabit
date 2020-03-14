@@ -1,12 +1,10 @@
 {
-    "name": "js-practice",
-    "version": "0.0.0",
-    "description": "Edabit exercises in Javascript.",
+    "name": "js-practice-edabit",
+    "version": "1.0.0",
+    "description": "Solved exercises in Javascript from Edabit.",
+    "author": "Denis Medvedev (raziEiL)",
+    "homepage": "https://github.com/raziEiL",
     "private": true,
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/nikclayton/edabit-javascript-challenges.git"
-    },
     "devDependencies": {
         "@types/jest": "^25.1.4",
         "@types/node": "^13.9.0",
