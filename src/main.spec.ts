@@ -141,9 +141,6 @@ describe("Edabit Challenges", () => {
         expect(Main.pianoKeys(16)).toEqual(["C", "2", "White", "65.41"]);
         expect(Main.pianoKeys(29)).toEqual(["C♯/D♭", "3", "Black", "138.59"]);
     });
-    /*     test("", () => {
-        expect().toEqual();
-    });*/
     test("additivePersistence", () => {
         expect(Main.additivePersistence(5)).toBe(0);
         expect(Main.additivePersistence(27)).toBe(1);
@@ -156,5 +153,144 @@ describe("Edabit Challenges", () => {
         expect(Main.multiplicativePersistence(39)).toBe(3);
         expect(Main.multiplicativePersistence(6788)).toBe(6);
         expect(Main.multiplicativePersistence(277777788888899)).toBe(11);
+    });
+    test("difference", () => {
+        expect(Main.difference([-9, -8, 6, -9, 15, 6])).toBe(24);
+        expect(Main.difference([-5, 6, 18, 4, 16, -2])).toBe(23);
+        expect(Main.difference([-2, 20, -9, -9, -2, -7])).toBe(29);
+        expect(Main.difference([4, -2, 11, -9, 15, 2])).toBe(24);
+        expect(Main.difference([15, 10, 3, -6, 6, 19])).toBe(25);
+        expect(Main.difference([1, 7, 18, -1, -2, 9])).toBe(20);
+        expect(Main.difference([5, 1, -9, 7, -8, -10])).toBe(17);
+        expect(Main.difference([-4, 17, -4, 20, -7, 0])).toBe(27);
+        expect(Main.difference([-2, 11, 11, -3, -3, -3])).toBe(14);
+        expect(Main.difference([1, 15, 14, 20, 10, 6])).toBe(19);
+        expect(Main.difference([4, 17, 12, 2, 10, 2])).toBe(15);
+        expect(Main.difference([-3, 3, 20, 10, 0, 17])).toBe(23);
+        expect(Main.difference([-3, 6, 20, 9, 6, 7])).toBe(23);
+        expect(Main.difference([16, 15, 1, 18, -7, -3])).toBe(25);
+        expect(Main.difference([-7, 4, -4, -3, -8, -9])).toBe(13);
+        expect(Main.difference([15, 8, 17, 18, 10, 10])).toBe(10);
+        expect(Main.difference([-3, 20, 16, 8, 18, -10])).toBe(30);
+        expect(Main.difference([6, 18, 9, 1, 3, 1])).toBe(17);
+        expect(Main.difference([20, 18, -2, -10, -10, 17])).toBe(30);
+        expect(Main.difference([18, 20, -7, -4, -2, -8])).toBe(28);
+    });
+    test("isWristband", () => {
+        expect(Main.isWristband(
+            [["A", "A"],
+            ["B", "B"],
+            ["C", "C"]])).toBeTruthy();
+        expect(Main.isWristband(
+            [["A", "B"],
+            ["A", "B"],
+            ["A", "B"]])).toBeTruthy();
+        expect(Main.isWristband(
+            [["A", "B", "C"],
+            ["C", "A", "B"],
+            ["B", "C", "A"],
+            ["A", "B", "C"]])).toBeTruthy();
+        expect(Main.isWristband(
+            [["A", "B", "C"],
+            ["C", "A", "B"],
+            ["D", "C", "A"],
+            ["E", "D", "C"]])).toBeTruthy();
+        expect(Main.isWristband(
+            [["A", "B", "C"],
+            ["B", "A", "B"],
+            ["D", "C", "A"],
+            ["E", "D", "C"]])).toBeFalsy();
+        expect(Main.isWristband(
+            [["A", "B", "C"],
+            ["B", "C", "A"],
+            ["C", "A", "B"],
+            ["A", "B", "A"]])).toBeTruthy();
+        expect(Main.isWristband(
+            [["A", "B", "C"],
+            ["B", "C", "D"],
+            ["C", "D", "E"],
+            ["D", "E", "F"]])).toBeTruthy();
+        expect(Main.isWristband(
+            [["A", "B", "C"],
+            ["B", "C", "D"],
+            ["C", "D", "E"],
+            ["D", "E", "E"]])).toBeTruthy();
+        expect(Main.isWristband(
+            [["A", "B", "C"],
+            ["B", "C", "D"],
+            ["C", "D", "E"],
+            ["D", "F", "E"]])).toBeFalsy();
+        expect(Main.isWristband(
+            [["A", "B", "C"],
+            ["B", "D", "A"],
+            ["C", "A", "B"],
+            ["A", "B", "A"]])).toBeFalsy();
+        expect(Main.isWristband(
+            [["A", "B"],
+            ["A", "B"],
+            ["A", "C"],
+            ["A", "B"]])).toBeFalsy();
+        expect(Main.isWristband(
+            [["A", "A"],
+            ["B", "B"],
+            ["C", "C"],
+            ["D", "B"]])).toBeFalsy();
+        expect(Main.isWristband(
+            [["A", "A"],
+            ["B", "B"],
+            ["C", "C"],
+            ["C", "C"]])).toBeTruthy();
+    });
+    /*     test("", () => {
+expect().toEqual();
+});*/
+    test("competitionRank", () => {
+        expect(Main.competitionRank({ Aria: 90, Brooke: 90, Olivia: 90, Den: 89, Vanya: 89, Eve: 74, Ellie: 87 }, "Vanya")).toBe(4);
+        expect(Main.competitionRank({ Aria: 90, Brooke: 90, Olivia: 90, Eve: 74, Ellie: 87 }, "Ellie")).toBe(4);
+        expect(Main.competitionRank({ Ryan: 97, Thomas: 85, Kai: 95, Aiden: 87, Logan: 90 }, "Logan")).toBe(3);
+        expect(Main.competitionRank({ Lilly: 91, Harris: 87, Archie: 93, Lexi: 100, Ava: 88 }, "Lilly")).toBe(3);
+        expect(Main.competitionRank({ Jayden: 90, Josh: 90, Rebecca: 96, Jack: 89, Max: 96 }, "Rebecca")).toBe(1);
+        expect(Main.competitionRank({ Ben: 78, Quinn: 84, Lena: 84, Isla: 92, Kayla: 72 }, "Ben")).toBe(4);
+        expect(Main.competitionRank({ Lucy: 81, Ella: 90, Summer: 91, Harper: 81, Sadie: 85 }, "Ella")).toBe(2);
+        expect(Main.competitionRank({ Cole: 96, Carson: 92, Gabriel: 91, Hollie: 97, Penelope: 85 }, "Hollie")).toBe(1);
+        expect(Main.competitionRank({ Michael: 89, Noah: 98, Reuben: 88, Sam: 91, Mia: 91 }, "Mia")).toBe(2);
+        expect(Main.competitionRank({ James: 93, Maria: 91, Lewis: 95, Joseph: 96, Imogen: 90 }, "Lewis")).toBe(2);
+        expect(Main.competitionRank({ Jessica: 90, Emily: 99, Hope: 91, Charlie: 96, Lucas: 87 }, "Hope")).toBe(3);
+        expect(Main.competitionRank({ Sophie: 86, Piper: 98, Elliot: 100, Erica: 90, Freya: 100 }, "Freya")).toBe(1);
+        expect(Main.competitionRank({ Grace: 93, Henry: 90, Florence: 98, Millie: 89, David: 99 }, "Henry")).toBe(4);
+        expect(Main.competitionRank({ Alfie: 90, Elijah: 90, Cara: 85, Isaac: 96, Bella: 92 }, "Elijah")).toBe(3);
+        expect(Main.competitionRank({ Clara: 85, Matilda: 86, Amelia: 98, Oliver: 95, Adam: 94 }, "Clara")).toBe(5);
+        expect(Main.competitionRank({ Nina: 81, Tommy: 79, Tyler: 84, Leo: 79, Hallie: 79 }, "Nina")).toBe(2);
+        expect(Main.competitionRank({ Violet: 99, Finn: 100, Eden: 99, Frankie: 98, Rory: 98 }, "Frankie")).toBe(4);
+        expect(Main.competitionRank({ Robbie: 70, Julia: 76, Owen: 70, Phoebe: 92, Jacob: 79 }, "Owen")).toBe(4);
+        expect(Main.competitionRank({ Andrew: 95, Louis: 95, Riley: 95, Amy: 95, Charlotte: 95 }, "Charlotte")).toBe(1);
+        expect(Main.competitionRank({ Harry: 81, Elsie: 81, Grayson: 84, John: 84, Alex: 81 }, "Elsie")).toBe(3);
+        expect(Main.competitionRank({ Innes: 76, Lola: 85, Anna: 92, Cooper: 93, Daniel: 93 }, "Cooper")).toBe(1);
+    });
+    test("findFrequent", () => {
+        expect(Main.findFrequent([3, 7, 3])).toBe(3);
+        expect(Main.findFrequent([null, "hello", true, null])).toBeNull();
+        expect(Main.findFrequent([false, "up", "down", "left", "right", true, false])).toBeFalsy();
+        expect(Main.findFrequent([undefined])).toBeUndefined();
+        expect(Main.findFrequent([1, 2, -3, true, false, undefined, "yes", "yeah", "yup", 2])).toBe(2);
+        expect(Main.findFrequent(["Batman", "Superman", "Batman"])).toBe("Batman");
+    });
+    test("nodeType", () => {
+        expect(Main.nodeType([1, 3, 6, 9, 2, 8, 5], [2, 2, 8, 8, 5, 5, -1], 1)).toBe("Leaf");
+        expect(Main.nodeType([1, 3, 6, 9, 2, 8, 5], [2, 2, 8, 8, 5, 5, -1], 2)).toBe("Inner");
+        expect(Main.nodeType([1, 3, 6, 9, 2, 8, 5], [2, 2, 8, 8, 5, 5, -1], 3)).toBe("Leaf");
+        expect(Main.nodeType([1, 3, 6, 9, 2, 8, 5], [2, 2, 8, 8, 5, 5, -1], 5)).toBe("Root");
+        expect(Main.nodeType([1, 3, 6, 9, 2, 8, 5], [2, 2, 8, 8, 5, 5, -1], 6)).toBe("Leaf");
+        expect(Main.nodeType([1, 3, 6, 9, 2, 8, 5], [2, 2, 8, 8, 5, 5, -1], 8)).toBe("Inner");
+        expect(Main.nodeType([1, 3, 6, 9, 2, 8, 5], [2, 2, 8, 8, 5, 5, -1], 9)).toBe("Leaf");
+        expect(Main.nodeType([1, 3, 6, 9, 2, 8, 5], [2, 2, 8, 8, 5, 5, -1], 10)).toBe("Not exist");
+        expect(Main.nodeType([6, 3, 1, 2, 5, 7, 4, 6, 8], [3, 1, 6, 1, 2, 3, 8, -1, 6], 8)).toBe("Inner");
+        expect(Main.nodeType([5, 6, 8, 7, 1, 9, 4, 11, 10, 2], [8, 8, -1, 8, 7, 4, 5, 4, 1, 1], 11)).toBe("Leaf");
+        expect(Main.nodeType([3, 2, 4, 9, 11, 10, 8, 5, 6, 7], [-1, 3, 3, 2, 3, 4, 4, 9, 10, 8], 3)).toBe("Root");
+        expect(Main.nodeType([5, 6, 8, 7, 1, 9, 4, 11, 10, 2], [8, 8, -1, 8, 7, 4, 5, 4, 1, 1], 4)).toBe("Inner");
+        expect(Main.nodeType([3, 2, 4, 9, 11, 10, 8, 5, 6, 7], [-1, 3, 3, 2, 3, 4, 4, 9, 10, 8], 6)).toBe("Leaf");
+        expect(Main.nodeType([6, 3, 1, 2, 5, 7, 4, 6, 8], [3, 1, 6, 1, 2, 3, 8, -1, 6], 5)).toBe("Leaf");
+        expect(Main.nodeType([5, 6, 8, 7, 1, 9, 4, 11, 10, 2], [8, 8, -1, 8, 7, 4, 5, 4, 1, 1], 8)).toBe("Root");
+        expect(Main.nodeType([3, 2, 4, 9, 11, 10, 8, 5, 6, 7], [-1, 3, 3, 2, 3, 4, 4, 9, 10, 8], 10)).toBe("Inner");
     });
 });

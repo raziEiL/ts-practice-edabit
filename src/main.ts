@@ -205,3 +205,98 @@ function persistence(n: number, f: ReduceCbk) {
     }
     return recursiveSum(n);
 }
+
+// #26 Maximum Difference https://edabit.com/challenge/4vvFr9ZTK2AdyswXH
+export function difference(nums: number[]) {
+    return nums.sort((a, b) => b - a)[0] - nums[nums.length - 1];
+}
+
+// #27 Patterned Wristband https://edabit.com/challenge/HX5eEuKb7epMgsKsj
+export function isWristband(arr: string[][]) {
+    // horizontal: each item in a row is identical.
+    function isHorizontal() {
+        for (let x = 0; x < arr.length; x++) {
+            for (let y = 1; y < arr[x].length; y++) {
+                if (arr[x][0] != arr[x][y])
+                    return false;
+            }
+        }
+        return true;
+    }
+    // vertical: each item in a column is identical.
+    function isVertical() {
+        for (let y = 0; y < arr[0].length; y++) {
+            for (let x = 1; x < arr.length; x++) {
+                if (arr[0][y] != arr[x][y])
+                    return false;
+            }
+        }
+        return true;
+    }
+    // diagonal left: each item is identical to the one on it's upper left or bottom right.
+    function isDiagonalLeft() {
+        for (let x = 0; x < arr.length - 1; x++) {
+            for (let y = 0; y < arr[x].length - 1; y++) {
+                if (arr[x][y] != arr[x + 1][y + 1])
+                    return false;
+            }
+        }
+        return true;
+    }
+    // diagonal right: each item is identical to the one on it's upper right or bottom left.
+    function isDiagonalRight() {
+        for (let x = 0; x < arr.length - 1; x++) {
+            for (let y = 1; y < arr[x].length; y++) {
+                if (arr[x][y] != arr[x + 1][y - 1])
+                    return false;
+            }
+        }
+        return true;
+    }
+    return isHorizontal() || isVertical() || isDiagonalLeft() || isDiagonalRight();
+}
+
+// #28 Standard Competition Ranking https://edabit.com/challenge/g2QxB5HCE9hN3PS75
+interface Rank {
+    [Name: string]: number;
+}
+
+export function competitionRank(results: Rank, person: string) {
+    const sortable: [string, number][] = [];
+    for (const name in results) {
+        sortable.push([name, results[name]]);
+    }
+    sortable.sort((a, b) => b[1] - a[1]);
+    let prev: number = NaN, count = 0;
+    for (let i = 0; i < sortable.length; i++) {
+        if (sortable[i][1] != prev)
+            count = i + 1;
+        if (sortable[i][0] === person)
+            return count;
+        prev = sortable[i][1];
+    }
+    // better solution
+    /*     let rank = 1;
+        for (let key in results) {
+            if (results[key] > results[person]) {
+                rank++;
+            }
+        }
+        return rank; */
+}
+
+// #29 Find the Most Frequent Element in an Array https://edabit.com/challenge/hxHBsYebaBM3ff5s6
+export function findFrequent(arr: any[]) {
+    let freq = [0];
+    for (const num of arr) {
+        const count = arr.length - arr.filter(v => num !== v).length;
+        if (count > freq[0])
+            freq = [count, num];
+    }
+    return freq[1];
+}
+
+// #30 Binary Tree Nodes https://edabit.com/challenge/ycNLF4XMmQub5AeTt
+export function nodeType(N: number[], P: number[], n: number) {
+    return [...N, ...P].includes(n) ? P[N.indexOf(n)] === -1 ? "Root" : P.includes(n) ? "Inner" : "Leaf" : "Not exist";
+}
