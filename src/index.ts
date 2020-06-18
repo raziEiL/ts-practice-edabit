@@ -8,8 +8,7 @@ export const addition = (num: number) => ++num;
 
 // #3
 export function getFirstValue(arr: Array<number>) {
-    let a: any;
-    [a] = arr;
+    const [a] = arr;
     return [a, arr[0], arr.shift()];
 }
 
@@ -30,7 +29,7 @@ export function wordBuilder(letters: string[], positions: number[]) {
 
 // #7 https://edabit.com/challenge/oS3wCwLWsDqvs7XKd
 export function reverse(str: string) {
-    return Array.from(str).reverse().join("");
+    return [...str].reverse().join("");
 }
 
 // #8 https://edabit.com/challenge/3cBe8af7yG2rzLEA2
@@ -71,22 +70,15 @@ export function noOdds(arr: number[]) {
 // #14 https://edabit.com/challenge/Wk7ScSpAG4wLSqm8k
 // Формула числа сочетаний: n!/(n−k)!⋅k!
 export function combinations(k: number, n: number) {
-    // 5! = 1*2*3*4*5=120
-    function factorial(n: number) {
-        let f = 1;
-        for (let i = 2; i <= n; i++)
-            f *= i;
-        return f;
-    }
     return Math.round(factorial(n) / (factorial(n - k) * factorial(k)));
 }
 
-export const f = (n: number): number => n <= 1 ? 1 : n * f(n - 1); // факториал числа 5! = 1*2*3*4*5=120
+export const factorial = (n: number): number => n <= 1 ? 1 : n * factorial(n - 1); // факториал числа 5! = 1*2*3*4*5=120
 
 // #15 https://edabit.com/challenge/djyXcJZAuezrSXJ4j
 export function missingAngle(angle1: number, angle2: number) {
     const angle3 = 180 - angle1 - angle2;
-    return angle3 === 90 ? "right" : angle3 < 90 ? "acute" : "obtuse";
+    return angle3 === 90 ? "right" : (angle3 < 90 ? "acute" : "obtuse");
 }
 
 // #16 https://edabit.com/challenge/GJn7xcBiCLdCNXFgy
