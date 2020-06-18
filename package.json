@@ -1,7 +1,7 @@
 {
     "name": "ts-practice-edabit",
     "version": "1.0.0",
-    "description": "Solved exercises in Javascript from Edabit.",
+    "description": "Solved Javascript exercises in Typescript from.",
     "main": "dist/index.js",
     "scripts": {
         "test": "jest --detectOpenHandles --no-cache ./*",

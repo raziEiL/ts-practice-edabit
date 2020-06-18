@@ -69,11 +69,11 @@ export function noOdds(arr: number[]) {
 
 // #14 https://edabit.com/challenge/Wk7ScSpAG4wLSqm8k
 // Формула числа сочетаний: n!/(n−k)!⋅k!
+export const factorial = (n: number): number => n <= 1 ? 1 : n * factorial(n - 1); // факториал числа 5! = 1*2*3*4*5=120
+
 export function combinations(k: number, n: number) {
     return Math.round(factorial(n) / (factorial(n - k) * factorial(k)));
 }
-
-export const factorial = (n: number): number => n <= 1 ? 1 : n * factorial(n - 1); // факториал числа 5! = 1*2*3*4*5=120
 
 // #15 https://edabit.com/challenge/djyXcJZAuezrSXJ4j
 export function missingAngle(angle1: number, angle2: number) {
@@ -98,15 +98,15 @@ export function validColor(color: string) {
     if (regex) {
         const arr = regex[2].split(","); // [ '0', '', '0' ]
         if (regex[1] === "rgb" && arr.length == 3 || regex[1] === "rgba" && arr.length == 4) {
-            for (let i = 0; i < arr.length; i++) {
-                let n: string | number = arr[i].trim(); // remove space
+            for (const [i, element] of arr.entries()) {
+                let n: string | number = element.trim(); // remove space
                 if (!n.length)
                     return false;
-                const persent = n[n.length - 1] === "%";
+                const persent = n.endsWith("%");
                 if (persent)
                     n = n.slice(0, -1);
                 n = Number(n);
-                if (isNaN(n) || n < 0 || i == 3 && n > (persent ? 100 : 1) || n > (persent ? 100 : 255))
+                if (Number.isNaN(n) || n < 0 || i == 3 && n > (persent ? 100 : 1) || n > (persent ? 100 : 255))
                     return false;
             }
             return true;
@@ -155,11 +155,12 @@ export function multiplyByLength(arr: number[]) {
 }
 
 // #24
+export const noteFreq = (key: number) => (2 ** (key / 12) * 27.5 /* A0 */).toFixed(2); // http://www.techlib.com/reference/musical_note_frequencies.html
+
 export function pianoKeys(key: number) {
     if (key < 1 || key > 88)
         return false;
     const NOTES = ["A", "A♯/B♭", "B", "C", "C♯/D♭", "D", "D♯/E♭", "E", "F", "F♯/G♭", "G", "G♯/A♭"];
-    const noteFreq = (key: number) => (2 ** (key / 12) * 27.5 /* A0 */).toFixed(2); // http://www.techlib.com/reference/musical_note_frequencies.htm
     key -= 1;
     const index = key % 12;
     return [NOTES[index], key < 3 ? "0" : Math.trunc((key + 9 /* offset */) / 12).toString(), NOTES[index].length > 1 ? "Black" : "White", noteFreq(key)];
@@ -188,9 +189,9 @@ type ReduceCbk = (previousValue: number, currentValue: number, currentIndex: num
 function persistence(n: number, f: ReduceCbk) {
     if (n < 10)
         return 0;
-    function recursiveSum(n: number, count: number = 0): number {
+    function recursiveSum(n: number, count = 0): number {
         count++;
-        const sum = n.toString().split("").map(n => parseInt(n)).reduce(f);
+        const sum = n.toString().split("").map(n => Number.parseInt(n)).reduce(f);
         if (sum > 9)
             return recursiveSum(sum, count);
         return count;
@@ -207,9 +208,9 @@ export function difference(nums: number[]) {
 export function isWristband(arr: string[][]) {
     // horizontal: each item in a row is identical.
     function isHorizontal() {
-        for (let x = 0; x < arr.length; x++) {
-            for (let y = 1; y < arr[x].length; y++) {
-                if (arr[x][0] != arr[x][y])
+        for (const element of arr) {
+            for (let y = 1; y < element.length; y++) {
+                if (element[0] != element[y])
                     return false;
             }
         }
@@ -259,13 +260,13 @@ export function competitionRank(results: Rank, person: string) {
         sortable.push([name, results[name]]);
     }
     sortable.sort((a, b) => b[1] - a[1]);
-    let prev: number = NaN, count = 0;
-    for (let i = 0; i < sortable.length; i++) {
-        if (sortable[i][1] != prev)
+    let prev: number = Number.NaN, count = 0;
+    for (const [i, element] of sortable.entries()) {
+        if (element[1] != prev)
             count = i + 1;
-        if (sortable[i][0] === person)
+        if (element[0] === person)
             return count;
-        prev = sortable[i][1];
+        prev = element[1];
     }
     // better solution
     /*     let rank = 1;
