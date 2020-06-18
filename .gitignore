@@ -1,4 +1,9 @@
 node_modules
-*.vscode
-*.jsbeautifyrc
+logs
+dist
 package-lock.json
+.vscode/*
+!.vscode/launch.json
+.jsbeautifyrc
+*.d.ts
+.env
