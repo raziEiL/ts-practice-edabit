@@ -78,7 +78,7 @@ export function combinations(k: number, n: number) {
 // #15 https://edabit.com/challenge/djyXcJZAuezrSXJ4j
 export function missingAngle(angle1: number, angle2: number) {
     const angle3 = 180 - angle1 - angle2;
-    return angle3 === 90 ? "right" : (angle3 < 90 ? "acute" : "obtuse");
+    return angle3 === 90 ? "right" : (((((((((((angle3 < 90 ? "acute" : "obtuse")))))))))));
 }
 
 // #16 https://edabit.com/challenge/GJn7xcBiCLdCNXFgy
@@ -291,5 +291,97 @@ export function findFrequent(arr: any[]) {
 
 // #30 Binary Tree Nodes https://edabit.com/challenge/ycNLF4XMmQub5AeTt
 export function nodeType(N: number[], P: number[], n: number) {
-    return [...N, ...P].includes(n) ? P[N.indexOf(n)] === -1 ? "Root" : P.includes(n) ? "Inner" : "Leaf" : "Not exist";
+    return [...N, ...P].includes(n) ? P[N.indexOf(n)] === -1 ? "Root" : ((((((((((P.includes(n) ? "Inner" : "Leaf")))))))))) : "Not exist";
 }
+
+// #31 Guitar Tuner https://edabit.com/challenge/P2kYTu2wxAyMmFhEq
+export function tune(array: number[]) {
+    // Standard tune E4-E2
+    const freq = [329.63, 246.94, 196, 146.83, 110, 82.41];
+    const result = [];
+    // eslint-disable-next-line unicorn/no-for-loop
+    for (let i = 0; i < freq.length; i++) {
+        if (array[i] === 0)
+            result[i] = " - ";
+        else if (array[i] === freq[i])
+            result[i] = "OK";
+        else {
+            let persent = array[i] / freq[i] * 100;
+            const isHigh = persent > 100;
+            persent = Math.round(isHigh ? persent - 100 : 100 - persent);
+            if (!persent)
+                result[i] = "OK";
+            else
+                result[i] = isHigh ? (((((((((((persent < 3 ? "•<" : "•<<"))))))))))) : (((((((((((persent < 3 ? ">•" : ">>•")))))))))));
+        }
+    }
+    return result;
+}
+
+// #32 Tic Tac Toe https://edabit.com/challenge/jsukwFKLKJx2qLs5b
+export function ticTacToe(board: string[][]) {
+    // eslint-disable-next-line unicorn/consistent-function-scoping
+    const isValid = (array: string[]) => array.every(v => v !== "E" && array[0] === v);
+    function horizontal() {
+        for (const element of board) {
+            if (isValid(element))
+                return element;
+        }
+    }
+    function vertical() {
+        for (let i = 0; i < board.length; i++) {
+            const a = [];
+            for (const element of board) {
+                a.push(element[i]);
+            }
+            if (isValid(a))
+                return a;
+        }
+    }
+    function diagonalLeft(array: string[][]) {
+        const a: string[] = [];
+        array.forEach((v, i) => a.push(array[i][i]));
+        if (isValid(a))
+            return a;
+    }
+    const diagonalRight = () => diagonalLeft(board.reverse());
+    const result = horizontal() || vertical() || diagonalLeft(board) || diagonalRight();
+    return result ? result[0] : "Draw";
+}
+
+
+export class BasicPlan {
+    static canStream = true;
+    static canDownload = true;
+    static numOfDevices = 1;
+    static hasSD = true;
+    static hasHD = false;
+    static hasUHD = false;
+    static price = "$8.99";
+}
+
+export class StandardPlan extends BasicPlan {
+    static hasHD = true;
+    static price = "$12.99";
+    static numOfDevices = 2;
+}
+
+export class PremiumPlan extends StandardPlan {
+    static hasUHD = true;
+    static price = "$15.99";
+    static numOfDevices = 4;
+}
+
+// #34 https://edabit.com/challenge/GAgu4fL6JY9ZnFWcd
+// d: Boolean value; true = rotation right, false = rotation left
+export function bitRotate(n: number, m: number, d?: boolean) {
+    const bitsLen = dec2bin(n).length;
+    m %= bitsLen;
+    if (!m) return n;
+    const shift = bitsLen - m;
+    const bin = dec2bin(d ? (n >> m) | (n << shift) : (n << m) | (n >> shift));
+    return bin2dec(bin.slice(bin.length - bitsLen)); // get last N (binLen) bits and convert it to dec
+}
+
+const dec2bin = (dec: number) => (dec >>> 0).toString(2);
+const bin2dec = (bin: string) => Number.parseInt(bin, 2) >> 0;

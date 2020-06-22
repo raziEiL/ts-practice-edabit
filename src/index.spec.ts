@@ -294,4 +294,82 @@ expect().toEqual();
         expect(Edabit.nodeType([5, 6, 8, 7, 1, 9, 4, 11, 10, 2], [8, 8, -1, 8, 7, 4, 5, 4, 1, 1], 8)).toBe("Root");
         expect(Edabit.nodeType([3, 2, 4, 9, 11, 10, 8, 5, 6, 7], [-1, 3, 3, 2, 3, 4, 4, 9, 10, 8], 10)).toBe("Inner");
     });
+    test("tune", () => {
+        expect(Edabit.tune([329.63, 246.94, 196, 146.83, 110, 82.41])).toEqual(["OK", "OK", "OK", "OK", "OK", "OK"]);
+        expect(Edabit.tune([0, 0, 190, 0, 110, 0])).toEqual([" - ", " - ", ">>•", " - ", "OK", " - "]);
+        expect(Edabit.tune([331, 248, 195, 147, 110, 84])).toEqual(["OK", "OK", ">•", "OK", "OK", "•<"]);
+        expect(Edabit.tune([0, 246.94, 0, 0, 0, 80])).toEqual([" - ", "OK", " - ", " - ", " - ", ">>•"]);
+        expect(Edabit.tune([329, 246, 195, 146, 111, 82])).toEqual(["OK", "OK", ">•", ">•", "•<", "OK"]);
+    });
+    test("tticTacToeune", () => {
+        expect(Edabit.ticTacToe([
+            ["X", "O", "X"],
+            ["O", "X", "O"],
+            ["O", "X", "X"]
+        ])).toBe("X");
+        expect(Edabit.ticTacToe([
+            ["O", "O", "O"],
+            ["O", "X", "X"],
+            ["E", "X", "X"]
+        ])).toBe("O");
+        expect(Edabit.ticTacToe([
+            ["X", "X", "O"],
+            ["O", "O", "X"],
+            ["X", "X", "O"]
+        ])).toBe("Draw");
+        expect(Edabit.ticTacToe([
+            ["X", "O", "O"],
+            ["X", "O", "O"],
+            ["X", "X", "X"]
+        ])).toBe("X");
+        expect(Edabit.ticTacToe([
+            ["X", "X", "O"],
+            ["O", "O", "X"],
+            ["X", "X", "O"]
+        ])).toBe("Draw");
+        expect(Edabit.ticTacToe([
+            ["X", "O", "X"],
+            ["O", "X", "O"],
+            ["E", "E", "X"]
+        ])).toBe("X");
+        expect(Edabit.ticTacToe([
+            ["X", "O", "E"],
+            ["X", "O", "E"],
+            ["E", "O", "X"]
+        ])).toBe("O");
+    });
+    test("BasicPlan", () => {
+        expect(Edabit.BasicPlan.canStream).toBe(true);
+        expect(Edabit.BasicPlan.canDownload).toBe(true);
+        expect(Edabit.BasicPlan.numOfDevices).toBe(1);
+        expect(Edabit.BasicPlan.hasSD).toBe(true);
+        expect(Edabit.BasicPlan.hasHD).toBe(false);
+        expect(Edabit.BasicPlan.hasUHD).toBe(false);
+        expect(Edabit.BasicPlan.price).toBe("$8.99");
+        expect(Edabit.StandardPlan.canStream).toBe(true);
+        expect(Edabit.StandardPlan.canDownload).toBe(true);
+        expect(Edabit.StandardPlan.numOfDevices).toBe(2);
+        expect(Edabit.StandardPlan.hasSD).toBe(true);
+        expect(Edabit.StandardPlan.hasHD).toBe(true);
+        expect(Edabit.StandardPlan.hasUHD).toBe(false);
+        expect(Edabit.StandardPlan.price).toBe("$12.99");
+        expect(Edabit.PremiumPlan.canStream).toBe(true);
+        expect(Edabit.PremiumPlan.canDownload).toBe(true);
+        expect(Edabit.PremiumPlan.numOfDevices).toBe(4);
+        expect(Edabit.PremiumPlan.hasSD).toBe(true);
+        expect(Edabit.PremiumPlan.hasHD).toBe(true);
+        expect(Edabit.PremiumPlan.hasUHD).toBe(true);
+        expect(Edabit.PremiumPlan.price).toBe("$15.99");
+    });
+    test("bitRotate", () => {
+        expect(Edabit.bitRotate(8, 1, true)).toBe(4);
+        expect(Edabit.bitRotate(16, 2, true)).toBe(4);
+        expect(Edabit.bitRotate(283, 7, true)).toBe(110);
+        expect(Edabit.bitRotate(16, 1, false)).toBe(1);
+        expect(Edabit.bitRotate(17, 2, false)).toBe(6); // 1 0001 (bits len 5) > 100 0100 | 0010 = 100 0110 > 0 0110 (removes bits)
+        expect(Edabit.bitRotate(122, 7, false)).toBe(122);
+        expect(Edabit.bitRotate(125, 10, true)).toBe(95);
+        expect(Edabit.bitRotate(1022, 8, false)).toBe(767);
+        expect(Edabit.bitRotate(33, 6, true)).toBe(33);
+    });
 });
