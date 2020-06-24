@@ -349,7 +349,7 @@ export function ticTacToe(board: string[][]) {
     return result ? result[0] : "Draw";
 }
 
-
+// ?
 export class BasicPlan {
     static canStream = true;
     static canDownload = true;
@@ -372,7 +372,7 @@ export class PremiumPlan extends StandardPlan {
     static numOfDevices = 4;
 }
 
-// #34 https://edabit.com/challenge/GAgu4fL6JY9ZnFWcd
+// #34 Bit Rotation https://edabit.com/challenge/GAgu4fL6JY9ZnFWcd
 // d: Boolean value; true = rotation right, false = rotation left
 export function bitRotate(n: number, m: number, d?: boolean) {
     const bitsLen = dec2bin(n).length;
@@ -385,3 +385,22 @@ export function bitRotate(n: number, m: number, d?: boolean) {
 
 const dec2bin = (dec: number) => (dec >>> 0).toString(2);
 const bin2dec = (bin: string) => Number.parseInt(bin, 2) >> 0;
+
+// #35 Happy Numbers https://edabit.com/challenge/EhGY9aaNHiCqqpnL9
+export function happy(n: number) {
+    while (n != 1 && n != 4)
+        n = [...String(n)].map(x => Number(x) ** 2).reduce((a, b) => a + b, 0);
+    return n == 1;
+}
+
+// #36 International Standard Book Numbers https://edabit.com/challenge/C5mooK3wfdhoooeLw
+const isbn10 = (s: string) => s.length === 10 && [...s].map((x, i) => x === "X" ? 10 : Number(x) * (10 - i)).reduce((a, b) => a + b, 0) % 11 === 0;
+const bn13sum = (s: string) => [...s].map((x, i) => Number(x) * (i % 2 ? 3 : 1)).reduce((a, b) => a + b, 0);
+
+export function isbn13(str: string) {
+    if (isbn10(str)) {
+        str = "978" + str.slice(0, -1);
+        return str + (10 - bn13sum(str) % 10);
+    }
+    return str.length === 13 && bn13sum(str) % 10 === 0 ? "Valid" : "Invalid";
+}

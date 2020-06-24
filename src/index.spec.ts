@@ -372,4 +372,28 @@ expect().toEqual();
         expect(Edabit.bitRotate(1022, 8, false)).toBe(767);
         expect(Edabit.bitRotate(33, 6, true)).toBe(33);
     });
+    test("happy", () => {
+        expect(Edabit.happy(100)).toBe(true);
+        expect(Edabit.happy(101)).toBe(false);
+        expect(Edabit.happy(102)).toBe(false);
+        expect(Edabit.happy(103)).toBe(true);
+        expect(Edabit.happy(104)).toBe(false);
+        expect(Edabit.happy(105)).toBe(false);
+        expect(Edabit.happy(106)).toBe(false);
+        expect(Edabit.happy(107)).toBe(false);
+        expect(Edabit.happy(108)).toBe(false);
+        expect(Edabit.happy(109)).toBe(true);
+        expect(Edabit.happy(110)).toBe(false);
+    });
+    test("isbn13", () => {
+        expect(Edabit.isbn13("9780316066525")).toBe("Valid");
+        expect(Edabit.isbn13("9783866155237")).toBe("Valid");
+        expect(Edabit.isbn13("9780345453747")).toBe("Valid");
+        expect(Edabit.isbn13("031606652X")).toBe("Invalid");
+        expect(Edabit.isbn13("9783876155237")).toBe("Invalid");
+        expect(Edabit.isbn13("0345453747")).toBe("Invalid");
+        expect(Edabit.isbn13("0316066524")).toBe("9780316066525");
+        expect(Edabit.isbn13("3866155239")).toBe("9783866155237");
+        expect(Edabit.isbn13("817450494X")).toBe("9788174504944");
+    });
 });
