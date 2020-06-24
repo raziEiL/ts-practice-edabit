@@ -51,7 +51,7 @@ module.exports = {
         "unicorn/prevent-abbreviations": "off",
         "unicorn/catch-error-name": "off",
         "unicorn/explicit-length-check": "off",
-        "unicorn/no-nested-ternary": "warn",
+        "unicorn/no-nested-ternary": "off",
         "no-null/no-null": "warn",
         // https://github.com/typescript-eslint/typescript-eslint/tree/master/packages/eslint-plugin
         "@typescript-eslint/tslint/config": [

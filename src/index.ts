@@ -78,7 +78,7 @@ export function combinations(k: number, n: number) {
 // #15 https://edabit.com/challenge/djyXcJZAuezrSXJ4j
 export function missingAngle(angle1: number, angle2: number) {
     const angle3 = 180 - angle1 - angle2;
-    return angle3 === 90 ? "right" : (((((((((((angle3 < 90 ? "acute" : "obtuse")))))))))));
+    return angle3 === 90 ? "right" : (angle3 < 90 ? "acute" : "obtuse");
 }
 
 // #16 https://edabit.com/challenge/GJn7xcBiCLdCNXFgy
@@ -291,7 +291,7 @@ export function findFrequent(arr: any[]) {
 
 // #30 Binary Tree Nodes https://edabit.com/challenge/ycNLF4XMmQub5AeTt
 export function nodeType(N: number[], P: number[], n: number) {
-    return [...N, ...P].includes(n) ? P[N.indexOf(n)] === -1 ? "Root" : ((((((((((P.includes(n) ? "Inner" : "Leaf")))))))))) : "Not exist";
+    return [...N, ...P].includes(n) ? P[N.indexOf(n)] === -1 ? "Root" : (P.includes(n) ? "Inner" : "Leaf") : "Not exist";
 }
 
 // #31 Guitar Tuner https://edabit.com/challenge/P2kYTu2wxAyMmFhEq
@@ -312,7 +312,7 @@ export function tune(array: number[]) {
             if (!persent)
                 result[i] = "OK";
             else
-                result[i] = isHigh ? (((((((((((persent < 3 ? "•<" : "•<<"))))))))))) : (((((((((((persent < 3 ? ">•" : ">>•")))))))))));
+                result[i] = isHigh ? (persent < 3 ? "•<" : "•<<") : (persent < 3 ? ">•" : ">>•");
         }
     }
     return result;
@@ -374,6 +374,9 @@ export class PremiumPlan extends StandardPlan {
 
 // #34 Bit Rotation https://edabit.com/challenge/GAgu4fL6JY9ZnFWcd
 // d: Boolean value; true = rotation right, false = rotation left
+const dec2bin = (dec: number) => (dec >>> 0).toString(2);
+const bin2dec = (bin: string) => Number.parseInt(bin, 2) >> 0;
+
 export function bitRotate(n: number, m: number, d?: boolean) {
     const bitsLen = dec2bin(n).length;
     m %= bitsLen;
@@ -382,9 +385,6 @@ export function bitRotate(n: number, m: number, d?: boolean) {
     const bin = dec2bin(d ? (n >> m) | (n << shift) : (n << m) | (n >> shift));
     return bin2dec(bin.slice(bin.length - bitsLen)); // get last N (binLen) bits and convert it to dec
 }
-
-const dec2bin = (dec: number) => (dec >>> 0).toString(2);
-const bin2dec = (bin: string) => Number.parseInt(bin, 2) >> 0;
 
 // #35 Happy Numbers https://edabit.com/challenge/EhGY9aaNHiCqqpnL9
 export function happy(n: number) {
