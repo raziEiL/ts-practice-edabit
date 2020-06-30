@@ -404,3 +404,51 @@ export function isbn13(str: string) {
     }
     return str.length === 13 && bn13sum(str) % 10 === 0 ? "Valid" : "Invalid";
 }
+
+// #37 RGB to HEX and HEX to RGB https://edabit.com/challenge/7RBuf27avn8QNigQA
+export function colorConversion(input: any) {
+    if (typeof input === "string") {
+        const n = input.startsWith("#");
+        if (n && input.length > 7 || !n && input.length > 6)
+            return "Not valid input";
+        // @ts-ignore
+        const array = input.match(/\w{2}/g).map(x => Number.parseInt(x, 16));
+        return { r: array[0], g: array[1], b: array[2] };
+    }
+    for (const key in input) {
+        if (input[key] > 255 || input[key] < 0)
+            return "Not valid input";
+    }
+    // @ts-ignore
+    return "#" + Object.values(input).map(x => (x < 10 ? "0" : "") + x.toString(16)).join("");
+}
+
+// #38 Strings & Frets https://edabit.com/challenge/9c5nHopKXkZH6zXij
+export function stringFret(st: number, fr: number) {
+    if (st < 1 || st > 6 || fr < 0 || fr > 24)
+        return "Invalid input";
+    const notes = ["A", "A#/Bb", "B", "C", "C#/Db", "D", "D#/Eb", "E", "F", "F#/Gb", "G", "G#/Ab"];
+    const opens = [7, 2, 10, 5, 0, 7];
+    // @ts-ignore
+    return notes[(opens[st - 1] + fr % 12) % 12];
+}
+
+// #39 Headline Hash Tags https://edabit.com/challenge/H9ohpGMyqJ9bAkqE5
+export function getHashTags(str: string) {
+    // @ts-ignore
+    const arr = str.match(/\w+/g).sort((a, b) => b.length - a.length);
+    if (arr.length > 3)
+        arr.length = 3;
+    return arr.map(a => "#" + a.toLowerCase());
+}
+
+// #40 Contact List (sort by last name) https://edabit.com/challenge/oK8YTFzTDBzjQpmtH
+const lastName = (a: string) => a.split(" ").pop();
+
+export function sortContacts(names: any, sort: string) {
+    if (!names)
+        return [];
+    // @ts-ignore
+    const arr = names.sort((a, b) => lastName(a).localeCompare(lastName(b)));
+    return sort === "ASC" ? arr : arr.reverse();
+}
