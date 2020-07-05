@@ -452,3 +452,25 @@ export function sortContacts(names: any, sort: string) {
     const arr = names.sort((a, b) => lastName(a).localeCompare(lastName(b)));
     return sort === "ASC" ? arr : arr.reverse();
 }
+
+// #41 Josephus Problem https://edabit.com/challenge/EcEN8FnruPEj6x5k4
+export function josephus(n: number, i: number) {
+    let c = 0;
+    let x = i === 3 ? 3 : i;
+    const killed: number[] = [x];
+    for (; killed.length !== n; x++) {
+        if (x > n)
+            x %= n;
+        if (killed.includes(x)) continue;
+        c++;
+        if (c === i || (n - killed.length) === 1) {
+            killed.push(x);
+            c = 0;
+        }
+    }
+    return killed.pop();
+}
+// #42 Tower of Hanoi https://edabit.com/challenge/3ZtykTsx3GSoPHyBb
+export function towerHanoi(discs: number) {
+    return 2 ** discs - 1;
+}

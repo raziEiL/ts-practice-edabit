@@ -440,7 +440,7 @@ expect().toEqual();
         expect(Edabit.getHashTags("Minecraft Stars on Youtube Share Secrets to Their Fame")).toEqual(["#minecraft", "#youtube", "#secrets"]);
         expect(Edabit.getHashTags("Are You an Elite Entrepreneur?")).toEqual(["#entrepreneur", "#elite", "#are"]);
     });
-    test("getHashTags", () => {
+    test("sortContacts", () => {
         expect(Edabit.sortContacts(["John Locke", "Thomas Aquinas", "David Hume", "Rene Descartes"], "ASC")).toEqual(["Thomas Aquinas", "Rene Descartes", "David Hume", "John Locke"]);
         expect(Edabit.sortContacts(["Paul Erdos", "Leonhard Euler", "Carl Gauss"], "DESC")).toEqual(["Carl Gauss", "Leonhard Euler", "Paul Erdos"]);
         expect(Edabit.sortContacts(["Michael Phelps", "Jesse Owens", "Michael Jordan", "Usain Bolt"], "DESC")).toEqual(["Michael Phelps", "Jesse Owens", "Michael Jordan", "Usain Bolt"]);
@@ -449,5 +449,21 @@ expect().toEqual();
         expect(Edabit.sortContacts([], "DESC")).toEqual([]);
         expect(Edabit.sortContacts(null, "DESC")).toEqual([]);
         expect(Edabit.sortContacts(undefined, "DESC")).toEqual([]);
+    });
+    test("josephus", () => {
+        expect(Edabit.josephus(41, 3)).toBe(31);
+        expect(Edabit.josephus(14, 2)).toBe(13);
+        expect(Edabit.josephus(35, 11)).toBe(18);
+        expect(Edabit.josephus(20, 1)).toBe(20);
+        expect(Edabit.josephus(15, 15)).toBe(4);
+    });
+    test("towerHanoi", () => {
+        expect(Edabit.towerHanoi(3)).toBe(7);
+        expect(Edabit.towerHanoi(5)).toBe(31);
+        expect(Edabit.towerHanoi(8)).toBe(255);
+        expect(Edabit.towerHanoi(19)).toBe(524287);
+        expect(Edabit.towerHanoi(9)).toBe(511);
+        expect(Edabit.towerHanoi(13)).toBe(8191);
+        expect(Edabit.towerHanoi(0)).toBe(0);
     });
 });
